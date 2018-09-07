@@ -19,14 +19,29 @@ class AssocOptions
 end
 
 class BelongsToOptions < AssocOptions
+  attr_reader :foreign_key, :class_name, :primary_key
   def initialize(name, options = {})
-    # ...
+    @foreign_key = options[:foreign_key]
+    @primary_key = options[:primary_key]
+    @class_name = options[:class_name]
+
+    @foreign_key ||= (name.downcase + '_id').to_sym
+    @primary_key ||= :id
+    @class_name ||= name.capitalize
   end
 end
 
 class HasManyOptions < AssocOptions
+  attr_reader :foreign_key, :class_name, :primary_key
+
   def initialize(name, self_class_name, options = {})
-    # ...
+    @foreign_key = options[:foreign_key]
+    @primary_key = options[:primary_key]
+    @class_name = options[:class_name]
+
+    @foreign_key ||= (self_class_name.downcase + '_id').to_sym
+    @primary_key ||= :id
+    @class_name ||= name.capitalize[0..-2]
   end
 end
 
