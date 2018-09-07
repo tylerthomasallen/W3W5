@@ -10,11 +10,11 @@ class AssocOptions
   )
 
   def model_class
-    # ...
+    self.class_name.constantize
   end
 
   def table_name
-    # ...
+    self.class_name.downcase + 's'
   end
 end
 
@@ -48,7 +48,8 @@ end
 module Associatable
   # Phase IIIb
   def belongs_to(name, options = {})
-    # ...
+    
+
   end
 
   def has_many(name, options = {})
